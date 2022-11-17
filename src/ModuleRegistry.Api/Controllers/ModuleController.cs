@@ -9,6 +9,7 @@ namespace ModuleRegistry.Api.Controllers
     public class ModulesController : ControllerBase
     {
         private readonly IModuleRepository _moduleRepository;
+        public static string HeaderXTerraformGet => "X-Terraform-Get";
         
         public ModulesController(IModuleRepository moduleRepository)
         {
@@ -65,7 +66,7 @@ namespace ModuleRegistry.Api.Controllers
             try
             {
                 var uri = _moduleRepository.GetModuleVersionUri(name, version);
-                Response.Headers.TryAdd("ModuleUrl", uri.AbsoluteUri);
+                Response.Headers.TryAdd(HeaderXTerraformGet, uri.AbsoluteUri);
             }
             catch (Exception)
             {
